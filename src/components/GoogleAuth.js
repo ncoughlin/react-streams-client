@@ -12,28 +12,55 @@ class GoogleAuth extends Component {
           scope: "email",
         })
         .then(() => {
+          // create auth variable
           this.auth = window.gapi.auth2.getAuthInstance();
           // update state so that component will re-render
           this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+          // listen for changes to authentication status
+          this.auth.isSignedIn.listen(this.onAuthChange);
         });
     });
   }
 
+  // updates auth state to current auth status
+  // triggered when authentication status changes
+  onAuthChange = () => {
+    this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+  };
+
+  onSignIn = () => {
+    this.auth.signIn();
+  }
+
+  onSignOut = () => {
+    this.auth.signOut();
+  }
+
   // helper function
-  retrieveUserStatus() {
+  renderAuthButton() {
     if (this.state.isSignedIn === null) {
-      return "UNKNOWN";
+      return null;
     } else if (this.state.isSignedIn) {
-      return "SIGNED IN";
+      return (
+        <button onClick={this.onSignOut} className="ui red google button">
+          <i className="google icon" />
+          Sign Out
+        </button>
+      );
     } else {
-      return "NOT SIGNED IN";
+      return (
+        <button onClick={this.onSignIn} className="ui red google button">
+          <i className="google icon" />
+          Sign In
+        </button>
+      );
     }
   }
 
   render() {
     return (
       <Link to="/" className="item">
-        <div>Status: {this.retrieveUserStatus()}</div>
+        <div>{this.renderAuthButton()}</div>
       </Link>
     );
   }
