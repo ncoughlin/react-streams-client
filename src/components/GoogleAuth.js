@@ -66,7 +66,7 @@ class GoogleAuth extends Component {
   render() {
     return (
       <Link to="/" className="item">
-        <div>{this.renderAuthButton()}</div>
+        {this.renderAuthButton()}
       </Link>
     );
   }
