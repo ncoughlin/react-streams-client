@@ -1,17 +1,12 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import { createStream } from '../../actions';
+import { createStream } from "../../actions";
 class StreamCreate extends Component {
-
   renderError({ error, touched }) {
     if (touched && error) {
-      return (
-      <div className="ui pointing label">
-        {error}
-      </div>
-      );
+      return <div className="ui pointing label">{error}</div>;
     }
   }
 
@@ -25,11 +20,12 @@ class StreamCreate extends Component {
         {this.renderError(meta)}
       </div>
     );
-  }
+  };
 
-  onSubmit(formValues) {
-    console.log(formValues);
-  }
+  // send post request to api server on submit
+  onSubmit = (formValues) => {
+    this.props.createStream(formValues);
+  };
 
   render() {
     return (
@@ -67,9 +63,11 @@ const validate = (formValues) => {
   return errors;
 };
 
+// form wrapper
 const formWrapped = reduxForm({
   form: "Create Stream",
   validate: validate,
 })(StreamCreate);
 
-export default connect()(formWrapped)
+// redux connect
+export default connect(null, { createStream })(formWrapped);
