@@ -12,7 +12,6 @@ class StreamCreate extends Component {
 
   // must be arrow function so that context of this is bound for this.renderError
   renderInput = ({ input, label, meta }) => {
-    console.log(meta);
     return (
       <div className="field">
         <label>{label}</label>
