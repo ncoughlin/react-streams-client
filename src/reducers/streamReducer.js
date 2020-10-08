@@ -1,23 +1,32 @@
-import { FETCH_STREAMS, FETCH_STREAM, CREATE_STREAM, EDIT_STREAM, DELETE_STREAM } from '../actions/types'
+import {
+  FETCH_STREAMS,
+  FETCH_STREAM,
+  CREATE_STREAM,
+  EDIT_STREAM,
+  DELETE_STREAM,
+} from "../actions/types";
 
-const streamReducer = (state={}, action) => {
-    switch (action.type) {
-        case FETCH_STREAMS:
+const streamReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FETCH_STREAMS:
 
-        case FETCH_STREAM:
+    case FETCH_STREAM:
+      return { ...state, [action.payload.id]: action.payload };
 
-        case CREATE_STREAM:
+    case CREATE_STREAM:
+      return { ...state, [action.payload.id]: action.payload };
 
-        case EDIT_STREAM:
-            const newState = { ...state };
-            newState[action.payload.id] = action.payload;
-            return newState;
+    case EDIT_STREAM:
+      return { ...state, [action.payload.id]: action.payload };
 
-        case DELETE_STREAM:
+    // delete payload consists ONLY of ID
+    case DELETE_STREAM:
+      const { [payload]: omit, ...newState } = state;
+      return newState;
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 };
 
 export default streamReducer;
