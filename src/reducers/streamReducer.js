@@ -9,6 +9,9 @@ const streamReducer = (state={}, action) => {
         case CREATE_STREAM:
 
         case EDIT_STREAM:
+            const newState = { ...state };
+            newState[action.payload.id] = action.payload;
+            return newState;
 
         case DELETE_STREAM:
 
@@ -16,3 +19,5 @@ const streamReducer = (state={}, action) => {
             return state;
     }
 };
+
+export default streamReducer;
