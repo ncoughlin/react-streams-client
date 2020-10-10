@@ -24,7 +24,7 @@ const streamReducer = (state = {}, action) => {
 
     // delete payload consists ONLY of ID
     case DELETE_STREAM:
-      const { [payload]: omit, ...newState } = state;
+      const { [action.payload]: omit, ...newState } = state;
       return newState;
 
     default:
