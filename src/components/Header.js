@@ -14,9 +14,7 @@ const Header = () => {
         <Link to="/" className="item">
           <button className="ui button">All Streams</button>
         </Link>
-        <Link to="/streams/new" className="item">
-          <button className="ui green basic button">New Stream</button>
-        </Link>
+        
         <GoogleAuth />
       </div>
     </div>
