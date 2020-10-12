@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import { createStream } from "../../actions";
 class StreamCreate extends Component {
@@ -27,6 +28,12 @@ class StreamCreate extends Component {
   };
 
   render() {
+    // check for successful form submission
+    // redirect to index if true
+    if (this.props.submitSucceeded === true) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <form
         className="ui form"
@@ -64,9 +71,10 @@ const validate = (formValues) => {
 
 // form wrapper
 const formWrapped = reduxForm({
-  form: "Create Stream",
+  form: "createStream",
   validate: validate,
 })(StreamCreate);
+
 
 // redux connect
 export default connect(null, { createStream })(formWrapped);
