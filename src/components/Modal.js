@@ -25,7 +25,11 @@ class Modal extends React.Component {
         className="ui dimmer modals visible active"
         onClick={ this.handleClick }
       >
-        <div className="ui standard modal visible active">
+        <div 
+          className="ui standard modal visible active"
+          // prevent event bubbling
+          onClick={ (e) => e.stopPropagation() }
+        >
           <div className="header">Delete Stream</div>
           <div className="content">
             Are you sure you want to delete this stream?
