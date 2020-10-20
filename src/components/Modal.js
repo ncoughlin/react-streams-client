@@ -1,49 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Redirect } from "react-router-dom";
 
-class Modal extends React.Component {
-  state = {
-    toDashboard: false,
-  }
-
-  handleClick = () => {
-    this.setState(() => ({
-      toDashboard: true
-    }))
-  }
-
-
-  render() {
-    if (this.state.toDashboard === true) {
-      return <Redirect to='/' />
-    }
-
-    return ReactDOM.createPortal(
-      
+const Modal = (props) => {
+  return ReactDOM.createPortal(
+    <div
+      className="ui dimmer modals visible active"
+      onClick={props.onDismiss}
+    >
       <div
-        className="ui dimmer modals visible active"
-        onClick={ this.handleClick }
+        className="ui standard modal visible active"
+        // prevent event bubbling
+        onClick={(e) => e.stopPropagation()}
       >
-        <div 
-          className="ui standard modal visible active"
-          // prevent event bubbling
-          onClick={ (e) => e.stopPropagation() }
-        >
-          <div className="header">Delete Stream</div>
-          <div className="content">
-            Are you sure you want to delete this stream?
-          </div>
-          <div className="actions">
-            <button className="ui primary button">Delete</button>
-            <button className="ui button">Cancel</button>
-          </div>
-        </div>
-      </div>,
-      document.querySelector("#modal")
-    );
-  }
-  
+        <div className="header">{props.title}</div>
+        <div className="content">{props.description}</div>
+        <div className="actions">{props.buttons}</div>
+      </div>
+    </div>,
+    document.querySelector("#modal")
+  );
 };
 
 export default Modal;
