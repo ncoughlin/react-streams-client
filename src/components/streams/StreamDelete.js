@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 
 import Modal from "../Modal";
 import { fetchStream, deleteStream } from "../../actions";
+import { render } from "react-dom";
 
 const StreamDelete = ({ history, match, stream, fetchStream, deleteStream }) => {
   // we fetch stream for component isolation
@@ -27,24 +29,24 @@ const StreamDelete = ({ history, match, stream, fetchStream, deleteStream }) => 
       <button className="ui button negative" onClick={onDelete}>
         Delete
       </button>
-      <button className="ui button" onClick={onDismiss}>
+      <Link className="ui button" to="/">
         Cancel
-      </button>
+      </Link>
     </>
   );
 
-  // if we have not retrieved stream yet use loading animation
-  if (!stream) {
-    return <div>Loading...</div>;
-  } else {
-    console.log(stream);
+  const renderContent = () => {
+    if(!stream) {
+      return 'Loading...'
+    }
+    return `Are you sure you want to delete stream: ${stream.title}`
   }
 
   return (
     <>
       <Modal
         title="Delete Stream"
-        description={`Are you sure you want to delete stream: `}
+        description={renderContent()}
         buttons={buttons}
         onDismiss={onDismiss}
       />
