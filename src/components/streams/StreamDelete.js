@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import Modal from "../Modal";
 import { fetchStream, deleteStream } from "../../actions";
-import { render } from "react-dom";
+
 
 const StreamDelete = ({ history, match, stream, fetchStream, deleteStream }) => {
   // we fetch stream for component isolation

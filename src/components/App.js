@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Header from "./Header";
 import StreamList from "./streams/StreamList";
@@ -14,11 +14,13 @@ class App extends Component {
       <div className="ui container">
         <BrowserRouter>
           <Header />
-          <Route path="/" exact component={StreamList} />
-          <Route path="/streams/new" exact component={StreamCreate} />
-          <Route path="/streams/:id/delete" exact component={StreamDelete} />
-          <Route path="/streams/:id/edit" exact component={StreamEdit} />
-          <Route path="/streams/:id" exact component={StreamShow} />
+          <Switch>
+            <Route path="/" exact component={StreamList} />
+            <Route path="/streams/new" exact component={StreamCreate} />
+            <Route path="/streams/:id/delete" exact component={StreamDelete} />
+            <Route path="/streams/:id/edit" exact component={StreamEdit} />
+            <Route path="/streams/:id" exact component={StreamShow} />
+          </Switch>
         </BrowserRouter>
       </div>
     );
